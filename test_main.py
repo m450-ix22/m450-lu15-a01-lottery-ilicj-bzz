@@ -26,7 +26,7 @@ def mock_functions(monkeypatch):
         print('Lotto\n---------\nA) Konto Ein- und Auszahlungen tätigen\nB) Lottotipps abgeben\nZ) Beenden')
         return input('')
 
-    def dummy_ticket(person):
+    def dummy_ticket():
         """Dummy function to replace the function 'create_ticket' in main"""
         pass
 
@@ -36,7 +36,7 @@ def mock_functions(monkeypatch):
     monkeypatch.setattr(main, 'create_ticket', dummy_ticket)
 
 
-def test_main_exit(capsys, monkeypatch, mock_functions):
+def test_main_exit(capsys, monkeypatch):
     """Test the main function with the exit option"""
     inputs = iter(['Z'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -46,7 +46,7 @@ def test_main_exit(capsys, monkeypatch, mock_functions):
     assert output == 'Lotto\n---------\nA) Konto Ein- und Auszahlungen tätigen\nB) Lottotipps abgeben\nZ) Beenden\n'
 
 
-def test_main_money(capsys, monkeypatch, mock_functions):
+def test_main_money(capsys, monkeypatch):
     """Test the main function with the money transaction option"""
     inputs = iter(['A', 'Z'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -56,7 +56,7 @@ def test_main_money(capsys, monkeypatch, mock_functions):
                      'Lotto\n---------\nA) Konto Ein- und Auszahlungen tätigen\nB) Lottotipps abgeben\nZ) Beenden\n'
 
 
-def test_main_ticket(capsys, monkeypatch, mock_functions):
+def test_main_ticket(capsys, monkeypatch):
     """Test the main function with the ticket creation option"""
     inputs = iter(['B', 'Z'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
@@ -122,7 +122,7 @@ def test_money_transfer():
     """Test the transfer_money function"""
     person1 = Person('name1', 'password1', 10)
     person2 = Person('name2', 'password2', 10)
-    main.transfer_money(person1, person2)
+    main.transfer_money(person1)
     assert person1.balance == 9
     assert person2.balance == 11
 
