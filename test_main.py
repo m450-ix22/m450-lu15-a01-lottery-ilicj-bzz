@@ -1,3 +1,6 @@
+"""
+main.py
+"""
 import pytest
 
 import main
@@ -9,11 +12,12 @@ from ticket import Ticket
 @pytest.fixture
 def mock_functions(monkeypatch):
     """Monkeypatch to replace the functions 'login', 'transfer_money', 'select_menu' and 'create_ticket' in main"""
+
     def dummy_login():
         """Dummy function to replace the function 'login' in main"""
         pass
 
-    def dummy_transfer(person):
+    def dummy_transfer():
         """Dummy function to replace the function 'transfer_money' in main"""
         pass
 
@@ -30,6 +34,7 @@ def mock_functions(monkeypatch):
     monkeypatch.setattr(main, 'transfer_money', dummy_transfer)
     monkeypatch.setattr(main, 'select_menu', dummy_select_menu)
     monkeypatch.setattr(main, 'create_ticket', dummy_ticket)
+
 
 def test_main_exit(capsys, monkeypatch, mock_functions):
     """Test the main function with the exit option"""
@@ -70,11 +75,13 @@ def test_ticket_joker_setter():
         pass
     assert ticket.joker == 0
 
+
 def test_ticket_number_setter():
     """Test the setter of the numbers property"""
     ticket = Ticket(0, [1, 2, 3, 4, 5, 6])
     ticket.numbers = [1, 2, 3, 4, 5, 6]
     assert ticket.numbers == [1, 2, 3, 4, 5, 6]
+
 
 def test_person_givenname_setter():
     """Test the setter of the givenname property"""
@@ -82,11 +89,13 @@ def test_person_givenname_setter():
     person.givenname = 'newname'
     assert person.givenname == 'newname'
 
+
 def test_person_password_setter():
     """Test the setter of the password property"""
     person = Person('name', 'password', 0)
     person.password = 'newpassword'
     assert person.password == 'newpassword'
+
 
 def test_person_balance_setter():
     """Test the setter of the balance property"""
@@ -94,17 +103,20 @@ def test_person_balance_setter():
     person.balance = 10
     assert person.balance == 10
 
+
 def test_numeric_input_read_int(monkeypatch):
     """Test the read_int function with valid input"""
     inputs = iter(['5'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     assert numeric_input.read_int('prompt', 0, 10) == 5
 
+
 def test_numeric_input_read_float(monkeypatch):
     """Test the read_float function with valid input"""
     inputs = iter(['5.5'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     assert numeric_input.read_float('prompt', 0, 10) == 5.5
+
 
 def test_money_transfer():
     """Test the transfer_money function"""
@@ -114,9 +126,9 @@ def test_money_transfer():
     assert person1.balance == 9
     assert person2.balance == 11
 
+
 def test_money_select_transaction(monkeypatch):
     """Test the select_transaction function"""
     inputs = iter(['A'])
     monkeypatch.setattr('builtins.input', lambda _: next(inputs))
     assert main.select_transaction() == 'A'
-
