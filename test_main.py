@@ -13,20 +13,20 @@ from ticket import Ticket
 def mock_functions(monkeypatch):
     """Monkeypatch to replace the functions 'login', 'transfer_money', 'select_menu' and 'create_ticket' in main"""
 
-    def dummy_login():
+    def dummy_login(*args, **kwargs):
         """Dummy function to replace the function 'login' in main"""
         pass
 
-    def dummy_transfer():
+    def dummy_transfer(*args, **kwargs):
         """Dummy function to replace the function 'transfer_money' in main"""
         pass
 
-    def dummy_select_menu():
+    def dummy_select_menu(*args, **kwargs):
         """Dummy function to replace the function 'select_menu' in main"""
         print('Lotto\n---------\nA) Konto Ein- und Auszahlungen tätigen\nB) Lottotipps abgeben\nZ) Beenden')
         return input('')
 
-    def dummy_ticket():
+    def dummy_ticket(*args, **kwargs):
         """Dummy function to replace the function 'create_ticket' in main"""
         pass
 
